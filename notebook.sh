@@ -1,1 +1,1 @@
-jupyter notebook --ip 0.0.0.0 --no-browser --debug
+jupyter notebook --ip 0.0.0.0 --no-browser
