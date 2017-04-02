@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/lorenzomartino86/machine-learning-container.svg?style=svg)](https://circleci.com/gh/lorenzomartino86/machine-learning-container)
+
 # machine-learning-container
 A docker container for machine learning experiments
 
