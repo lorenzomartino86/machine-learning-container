@@ -18,5 +18,7 @@ deployment:
     branch: /.*/
     commands:
       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-      - docker tag machinelearningcontainer_jupyter $DOCKER_HUB_USER_ID/jupyter:$CIRCLE_SHA1
-      - docker tag machinelearningcontainer_jupyter $DOCKER_HUB_USER_ID/jupyter:latest
+      - docker tag machinelearningcontainer_jupyter $DOCKER_HUB_USER_ID/machine-learning-lab:$CIRCLE_SHA1
+      - docker tag machinelearningcontainer_jupyter $DOCKER_HUB_USER_ID/machine-learning-lab:latest
+      - docker push $DOCKER_HUB_USER_ID/machine-learning-lab:$CIRCLE_SHA1
+      - docker push $DOCKER_HUB_USER_ID/machine-learning-lab:latest
