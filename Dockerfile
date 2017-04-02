@@ -1,5 +1,5 @@
 FROM python:latest
-RUN pip install flask jupyter numpy pandas scikit-learn pandas-datareader wtforms scipy
+RUN pip install flask jupyter numpy
 RUN useradd -ms /bin/bash admin
 USER admin
 WORKDIR /home/admin
