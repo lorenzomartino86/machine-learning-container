@@ -1,8 +1,8 @@
 FROM python:latest
 RUN pip install flask jupyter numpy pandas scikit-learn pandas-datareader wtforms scipy matplotlib
-COPY ./notebook.sh /home/admin/notebook.sh
-RUN chmod 775 /home/admin/notebook.sh && mkdir /home/admin/notebook
+COPY ./notebook.sh /etc/notebook.sh
+RUN chmod 775 /etc/init.d/notebook.sh
 RUN useradd -ms /bin/bash admin
 USER admin
-WORKDIR /home/admin/notebook
-CMD /home/admin/notebook.sh
+WORKDIR /home/admin
+CMD /etc/init.d/notebook.sh
