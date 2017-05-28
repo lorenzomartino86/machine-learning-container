@@ -1,9 +1,22 @@
 [![CircleCI](https://circleci.com/gh/lorenzomartino86/machine-learning-container.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/lorenzomartino86/machine-learning-container)
 
-# machine-learning-container
-A docker container to expose a portable laboratory for machine learning experiments
+### Introduction
+A docker container to expose a portable laboratory for machine learning experiments.
 
-Run container simply executing
+On this jupyter instance you can do one of the following tasks:
+- Data science analysis using most popular py libraries: pandas, numpy, matplotlib,
+- Build graphviz images
+- Write and export LaTex code from inside notebook
+
+N.B: This is a container and by nature it's a stateless instance of an image. Export files to your host machine before shutting down the container or you will lose your work.
+
+### Prerequisites
+You should have docker installed on your machine. Please follow official documentation: https://docs.docker.com/engine/installation/
+
+### Instructions
+You can pull the already built image from dockerhub following instructions shown at link https://hub.docker.com/r/lorenzomartino/machine-learning-lab/
+
+Or ou can directly build and run jupyter simply executing
 ```
 $ docker-compose up
 ```
@@ -22,3 +35,4 @@ You should access on the host machine typing following URL on browser
 ```
 
 It will ask you the token to be used. In the above sample is e7dd783b5eb30462c7079b2f477eafa7024f1f981cddb99b.
+
