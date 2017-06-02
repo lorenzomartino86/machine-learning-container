@@ -1,5 +1,5 @@
 FROM lorenzomartino/data-science-basement:latest
-RUN apt-get --yes update && apt-get --yes install pandoc && apt-get --yes install texlive-full
+RUN apt-get --yes update && apt-get --yes install graphviz && apt-get --yes install pandoc && apt-get --yes install texlive-full
 RUN pip install jupyter
 COPY ./notebook.sh /etc/notebook.sh
 RUN chmod 775 /etc/notebook.sh
