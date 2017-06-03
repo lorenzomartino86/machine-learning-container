@@ -27,6 +27,7 @@ RUN apt-get --yes update && \
                           libxerces-c-dev
 RUN apt-get --yes update && \
     apt-get --yes install pandoc && \
+    apt-get --yes install graphviz && \
     apt-get --yes install texlive-full
 RUN pip install jupyter \
                 graphviz
