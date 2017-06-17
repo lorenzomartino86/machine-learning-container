@@ -31,6 +31,14 @@ RUN apt-get --yes update && \
     apt-get --yes install texlive-full
 RUN pip install jupyter \
                 graphviz
+
+# Configuration of python libraries
+RUN mkdir /libs
+COPY requirements.txt /libs
+WORKDIR /libs
+RUN pip install -r requirements.txt
+
+# Configuration of Jupyter notebook
 COPY ./notebook.sh /etc/notebook.sh
 RUN chmod 775 /etc/notebook.sh
 RUN useradd -ms /bin/bash admin
