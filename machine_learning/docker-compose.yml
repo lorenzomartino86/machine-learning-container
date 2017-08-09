@@ -1,0 +1,6 @@
+version: '2'
+services:
+  machine_learning:
+    ports:
+      - "8888:8888"
+    build: .

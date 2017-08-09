@@ -4,9 +4,9 @@ services:
     ports:
       - "8888:8888"
     build: .
-    dockerfile: Dockerfile_machine_learning
+    dockerfile: Dockerfile
   latex:
     ports:
       - "8888:8888"
     build: .
-    dockerfile: Dockerfile_latex
+    dockerfile: Dockerfile
