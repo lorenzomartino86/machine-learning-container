@@ -10,7 +10,7 @@ WORKDIR /libs
 RUN pip install -r requirements.txt
 
 # Configuration of Jupyter notebook
-COPY ../notebook.sh /etc/notebook.sh
+COPY ./notebook.sh /etc/notebook.sh
 RUN chmod 775 /etc/notebook.sh
 RUN useradd -ms /bin/bash admin
 USER admin
