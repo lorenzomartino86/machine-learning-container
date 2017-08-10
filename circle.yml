@@ -13,6 +13,7 @@ test:
   override:
     - docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
     - docker-compose -f latex/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
+    - docker-compose -f graphviz/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
 
 deployment:
   hub:
@@ -27,3 +28,7 @@ deployment:
       - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest
       - docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
       - docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
+      - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
+      - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
+      - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
+      - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
