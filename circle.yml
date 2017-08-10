@@ -11,7 +11,7 @@ dependencies:
 
 test:
   override:
-    - docker-compose -f machine_learning/docker-compose.yml up -d
+    - docker-compose -f machine_learning/docker-compose.yml -f latex/docker-compose.yml  up -d
 
 deployment:
   hub:
