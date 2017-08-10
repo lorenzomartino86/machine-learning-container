@@ -1,12 +1,6 @@
 version: '2'
 services:
-  machine_learning:
+  jupyter:
     ports:
       - "8888:8888"
     build: .
-    dockerfile: Dockerfile
-  latex:
-    ports:
-      - "8888:8888"
-    build: .
-    dockerfile: Dockerfile
