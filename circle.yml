@@ -83,7 +83,7 @@ workflows:
               - "dependencies"
       - "latex-publish":
             requires:
-              - "latex-learning"
+              - "latex"
       - "graphviz":
             requires:
               - "dependencies"
