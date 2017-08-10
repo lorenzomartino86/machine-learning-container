@@ -1,34 +1,92 @@
-machine:
-  pre:
-    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-  services:
-    - docker
+version: 2.0
 
-dependencies:
-  pre:
-    - sudo pip install --upgrade pip
-    - sudo pip install docker-compose
+jobs:
+  "preparation":
+    machine:
+      pre:
+        - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+      services:
+        - docker
 
-test:
-  override:
-    - docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
-    - docker-compose -f latex/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
-    - docker-compose -f graphviz/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
+  "dependencies":
+    pre:
+       - sudo pip install --upgrade pip
+       - sudo pip install docker-compose
 
-deployment:
-  hub:
-    branch: /.*/
-    commands:
-      - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-      - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
-      - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
-      - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
-      - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
-      - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
-      - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest
-      - docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
-      - docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
-      - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
-      - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
-      - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
-      - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
+  "machine-learning":
+    steps:
+      - run:
+          name: Building machine learning image
+          command: docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
+
+  "machine-learning-publish":
+    steps:
+      - run:
+          name: Publishing machine learning image
+          command:
+             - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+             - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
+             - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
+             - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
+             - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
+
+  "latex":
+    steps:
+      - run:
+          name: Building latex image
+          command: docker-compose -f latex/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
+
+  "latex-publish":
+    steps:
+      - run:
+          name: Publishing latex image
+          command:
+                - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+                - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
+                - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest
+                - docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
+                - docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
+
+  "graphviz":
+    steps:
+      - run:
+          name: Building graphviz image
+          command: docker-compose -f graphviz/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
+
+  "graphviz-publish":
+    steps:
+      - run:
+          name: Publishing graphviz image
+          command:
+               - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+               - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
+               - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
+               - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
+               - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "preparation"
+      - "dependencies":
+            requires:
+               - "preparation"
+      - "machine-learning":
+            requires:
+              - "dependencies"
+      - "machine-learning-publish":
+            requires:
+              - "machine-learning"
+      - "latex":
+            requires:
+              - "dependencies"
+      - "latex-publish":
+            requires:
+              - "latex-learning"
+      - "graphviz":
+            requires:
+              - "dependencies"
+      - "graphviz-publish":
+            requires:
+              - "graphviz"
