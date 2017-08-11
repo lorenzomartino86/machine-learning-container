@@ -1,8 +1,6 @@
 version: 2.0
 
 machine:
-  pre:
-    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
   services:
     - docker
 
@@ -12,8 +10,8 @@ dependencies:
        - sudo pip install docker-compose
 
 jobs:
-
   "machine-learning":
+    machine: true
     steps:
       - run:
           name: Building machine learning image
@@ -23,7 +21,7 @@ jobs:
     steps:
       - run:
           name: Publishing machine learning image
-          command:
+          com mand:
              - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
              - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
              - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
