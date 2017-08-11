@@ -18,8 +18,8 @@ jobs:
       - run:
           name: Building machine learning image
           command:
-            - ls -latr
-            - docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
+             ls -latr
+             docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
 
   "machine-learning-publish":
     machine: true
