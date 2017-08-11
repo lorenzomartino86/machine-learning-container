@@ -18,10 +18,11 @@ jobs:
           command: docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
 
   "machine-learning-publish":
+    machine: true
     steps:
       - run:
           name: Publishing machine learning image
-          com mand:
+          command:
              - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
              - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
              - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
@@ -29,12 +30,14 @@ jobs:
              - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
 
   "latex":
+    machine: true
     steps:
       - run:
           name: Building latex image
           command: docker-compose -f latex/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
 
   "latex-publish":
+    machine: true
     steps:
       - run:
           name: Publishing latex image
@@ -46,12 +49,14 @@ jobs:
                 - docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
 
   "graphviz":
+    machine: true
     steps:
       - run:
           name: Building graphviz image
           command: docker-compose -f graphviz/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
 
   "graphviz-publish":
+    machine: true
     steps:
       - run:
           name: Publishing graphviz image
