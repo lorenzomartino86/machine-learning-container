@@ -1,25 +1,24 @@
 version: 2.0
 
 machine:
-  pre:
-    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
   services:
     - docker
 
 dependencies:
-    pre:
+    override:
        - sudo pip install --upgrade pip
        - sudo pip install docker-compose
+       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
 
 jobs:
   "machine-learning":
+    workdir: ~/machine-learning-container
     machine: true
     steps:
       - run:
           name: Building machine learning image
           command:
-             ls -latr
-             docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
+             - docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
 
   "machine-learning-publish":
     machine: true
@@ -27,7 +26,6 @@ jobs:
       - run:
           name: Publishing machine learning image
           command:
-             - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
              - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
              - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
              - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
@@ -46,7 +44,6 @@ jobs:
       - run:
           name: Publishing latex image
           command:
-                - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
                 - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
                 - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest
                 - docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
@@ -65,7 +62,6 @@ jobs:
       - run:
           name: Publishing graphviz image
           command:
-               - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
                - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
                - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
                - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
