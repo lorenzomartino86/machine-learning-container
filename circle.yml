@@ -16,11 +16,11 @@ jobs:
     machine: true
     steps:
       - type: shell
-              name: Check permissions
-              command: |
-                ls -la ~
-                ls -la ~/machine-learning-container
-      - run:
+          name: Check permissions
+          command: |
+             ls -la ~
+             ls -la ~/machine-learning-container
+      - type: shell
           name: Building machine learning image
           command:
              docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
