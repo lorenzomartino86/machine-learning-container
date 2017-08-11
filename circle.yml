@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Building machine learning image
           command:
-             ls -latr $CIRCLE_WORKING_DIRECTORY
+             ls -latr ~/machine-learning-container
              docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
 
   "machine-learning-publish":
