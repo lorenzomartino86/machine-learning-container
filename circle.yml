@@ -15,6 +15,11 @@ jobs:
     workdir: ~/machine-learning-container
     machine: true
     steps:
+      - type: shell
+              name: Check permissions
+              command: |
+                ls -la ~
+                ls -la ~/machine-learning-container
       - run:
           name: Building machine learning image
           command:
