@@ -19,10 +19,10 @@ jobs:
       - run:
           name: Building machine learning image
           command:
-             - ls -aslh .
-             - ls -aslh ~
-             - ls -latr ~/machine-learning-container
-             - docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
+             ls -aslh . &&
+             ls -aslh ~ &&
+             ls -latr ~/machine-learning-container &&
+             docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
 
   "machine-learning-publish":
     machine: true
