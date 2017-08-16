@@ -20,8 +20,8 @@ jobs:
       - run:
           name: Building machine learning image
           command:
-                      echo $PWD &&
-                      ls -aslh $PWD &&
+             echo $PWD &&
+             ls -aslh $PWD &&
              docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
 
   "machine-learning-publish":
@@ -30,17 +30,21 @@ jobs:
       - run:
           name: Publishing machine learning image
           command:
-             - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
-             - docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
-             - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1
-             - docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
+               docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1 &&
+               docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest &&
+               docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1 &&
+               docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
 
   "latex":
+    working_directory: ~/tmp
     machine: true
     steps:
       - run:
           name: Building latex image
-          command: docker-compose -f latex/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
+          command:
+             echo $PWD &&
+             ls -aslh $PWD &&
+             docker-compose -f latex/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
 
   "latex-publish":
     machine: true
@@ -48,17 +52,21 @@ jobs:
       - run:
           name: Publishing latex image
           command:
-                - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
-                - docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest
-                - docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1
-                - docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
+                docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
+                docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest &&
+                docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
+                docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
 
   "graphviz":
+    working_directory: ~/tmp
     machine: true
     steps:
       - run:
           name: Building graphviz image
-          command: docker-compose -f graphviz/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
+          command:
+             echo $PWD &&
+             ls -aslh $PWD &&
+             docker-compose -f graphviz/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
 
   "graphviz-publish":
     machine: true
@@ -66,10 +74,10 @@ jobs:
       - run:
           name: Publishing graphviz image
           command:
-               - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
-               - docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
-               - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1
-               - docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
+               docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
+               docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest &&
+               docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
+               docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
 
 workflows:
   version: 2
