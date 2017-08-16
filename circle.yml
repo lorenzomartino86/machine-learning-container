@@ -21,13 +21,8 @@ jobs:
           name: Building machine learning image
           command:
                       echo $PWD &&
-                      ls -aslh . &&
-                      ls -aslh ~ &&
-                      ls -aslh ~/tmp &&
+                      ls -aslh $PWD &&
              docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
-      - persist_to_workspace:
-                root: .
-                path: .
 
   "machine-learning-publish":
     machine: true
