@@ -15,9 +15,9 @@ You should have docker installed on your machine. Please follow official documen
 
 ### Instructions
 You can pull the already built image from dockerhub following instructions shown at following links:
--**machine_learning**: https://hub.docker.com/r/lorenzomartino/machine-learning-jupyter/
--**graphviz**: https://hub.docker.com/r/lorenzomartino/graphviz-jupyter/
--**latex**: https://hub.docker.com/r/lorenzomartino/latex-jupyter/
+- **machine_learning**: https://hub.docker.com/r/lorenzomartino/machine-learning-jupyter/
+- **graphviz**: https://hub.docker.com/r/lorenzomartino/graphviz-jupyter/
+- **latex**: https://hub.docker.com/r/lorenzomartino/latex-jupyter/
 
 Or ou can directly build and run jupyter simply executing (in case you need machine learning image)
 ```
