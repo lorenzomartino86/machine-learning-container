@@ -61,7 +61,7 @@ jobs:
       - run:
           name: Building graphviz image
           command:
-             echo ${$DOCKER_HUB_USER_ID} &&
+             echo ${DOCKER_HUB_USER_ID} &&
              echo $PWD &&
              ls -aslh $PWD &&
              docker-compose -f graphviz/docker-compose.yml  up -d &&
