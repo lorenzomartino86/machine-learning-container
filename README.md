@@ -1,24 +1,27 @@
 [![CircleCI](https://circleci.com/gh/lorenzomartino86/machine-learning-container.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/lorenzomartino86/machine-learning-container)
 
 ### Introduction
-A docker container to expose a portable laboratory for machine learning experiments.
+This projects handle build and distribution of some docker images in order to extend the operations on a jupyter notebook.
 
-On this jupyter instance you can do one of the following tasks:
-- Data science analysis using most popular py libraries: pandas, numpy, matplotlib,
-- Build graphviz images
-- Write and export LaTex code from inside notebook
+Following jupyter notebook instances are built on separated images:
+- **machine_learning**: Used for data science analysis using most popular libraries: pandas, numpy, matplotlib, etc.
+- **graphviz**: Used for complex graph generation with graphviz library. It's configured with python api for graphviz.
+- **latex**: Used for math documentation. It allows writing and exporting of LaTex code from inside notebook
 
-N.B: This is a container and by nature it's a stateless instance of an image. Export files to your host machine before shutting down the container or you will lose your work.
+N.B: These are containers and by nature they are stateless instances of an image. Export files to your host machine before shutting down the container or you will lose your work.
 
 ### Prerequisites
 You should have docker installed on your machine. Please follow official documentation: https://docs.docker.com/engine/installation/
 
 ### Instructions
-You can pull the already built image from dockerhub following instructions shown at link https://hub.docker.com/r/lorenzomartino/machine-learning-lab/
+You can pull the already built image from dockerhub following instructions shown at following links:
+-**machine_learning**: https://hub.docker.com/r/lorenzomartino/machine-learning-jupyter/
+-**graphviz**: https://hub.docker.com/r/lorenzomartino/graphviz-jupyter/
+-**latex**: https://hub.docker.com/r/lorenzomartino/latex-jupyter/
 
-Or ou can directly build and run jupyter simply executing
+Or ou can directly build and run jupyter simply executing (in case you need machine learning image)
 ```
-$ docker-compose up
+$ docker-compose -f machine_learning/docker-compose.yml up -d 
 ```
 
 Then you should notice a log like following ones on the container side:
