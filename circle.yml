@@ -13,7 +13,7 @@ dependencies:
 jobs:
 
   "machine-learning":
-    workdir: $CIRCLE_WORKING_DIRECTORY
+    workdir: .
     machine: true
     steps:
       - run:
