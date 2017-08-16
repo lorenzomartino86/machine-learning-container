@@ -3,10 +3,6 @@ version: 2.0
 machine:
   services:
     - docker
-  environment:
-    machine-learning-version: 0.0.1
-    latex-version: 0.0.1
-    graphiz-version: 0.0.1
 
 dependencies:
     override:
@@ -16,8 +12,10 @@ dependencies:
 
 jobs:
 
-  "machine-learning":
+  machine-learning:
     working_directory: ~/tmp
+    environment:
+       version: 1.0.0
     machine: true
     steps:
       - checkout
@@ -28,14 +26,16 @@ jobs:
              ls -aslh $PWD &&
              docker-compose -f machine_learning/docker-compose.yml up -d &&
              docker stop $(docker ps -a -q) &&
-             docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:$machine-learning-version &&
+             docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:${version} &&
              docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest &&
-             docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:$machine-learning-version &&
+             docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:${version} &&
              docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
 
 
-  "latex":
+  latex:
     working_directory: ~/tmp
+    environment:
+       version: 1.0.0
     machine: true
     steps:
       - checkout
@@ -46,13 +46,15 @@ jobs:
              ls -aslh $PWD &&
              docker-compose -f latex/docker-compose.yml  up -d &&
              docker stop $(docker ps -a -q) &&
-             docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
+             docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:${version} &&
              docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest &&
-             docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
+             docker push $DOCKER_HUB_USER_ID/latex-jupyter:${version} &&
              docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
 
-  "graphviz":
+  graphviz:
     working_directory: ~/tmp
+    environment:
+       version: 1.0.0
     machine: true
     steps:
       - checkout
@@ -63,15 +65,15 @@ jobs:
              ls -aslh $PWD &&
              docker-compose -f graphviz/docker-compose.yml  up -d &&
              docker stop $(docker ps -a -q) &&
-             docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
+             docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:${version} &&
              docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest &&
-             docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
+             docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:${version} &&
              docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
 
 workflows:
   version: 2
   build:
     jobs:
-      - "machine-learning"
-      - "latex"
-      - "graphviz"
+      - machine-learning
+      - latex
+      - graphviz
