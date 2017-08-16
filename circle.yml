@@ -13,7 +13,7 @@ dependencies:
 jobs:
 
   "machine-learning":
-    workdir: .
+    workdir: ~
     machine: true
     steps:
       - run:
