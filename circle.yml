@@ -76,6 +76,7 @@ jobs:
       - run:
           name: Publishing graphviz image
           command:
+               docker images && docker ps &&
                docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
                docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest &&
                docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
