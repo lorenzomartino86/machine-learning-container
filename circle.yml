@@ -22,6 +22,7 @@ jobs:
              pwd &&
              ls -aslh . &&
              ls -aslh ~ &&
+             ls -aslh ~/project/* &&
              docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
 
   "machine-learning-publish":
