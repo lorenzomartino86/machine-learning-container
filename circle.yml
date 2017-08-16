@@ -13,17 +13,22 @@ dependencies:
 jobs:
 
   "machine-learning":
-    workdir: ~
+    working_directory: ~/tmp
     machine: true
     steps:
+      - checkout
       - run:
           name: Building machine learning image
-          command:
-             pwd &&
-             ls -aslh . &&
-             ls -aslh ~ &&
-             ls -aslh ~/project &&
+          command: |
+                      echo $PWD
+                      ls -aslh .
+                      ls -aslh ~
+                      ls -aslh ~/tmp
              docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
+      - persist_to_workspace:
+                root: .
+                paths:
+                  - .
 
   "machine-learning-publish":
     machine: true
