@@ -3,6 +3,10 @@ version: 2.0
 machine:
   services:
     - docker
+  environment:
+    machine-learning-version: 0.0.1
+    latex-version: 0.0.1
+    graphiz-version: 0.0.1
 
 dependencies:
     override:
@@ -22,18 +26,13 @@ jobs:
           command:
              echo $PWD &&
              ls -aslh $PWD &&
-             docker-compose -f machine_learning/docker-compose.yml up -d && docker stop $(docker ps -a -q)
+             docker-compose -f machine_learning/docker-compose.yml up -d &&
+             docker stop $(docker ps -a -q) &&
+             docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:$machine-learning-version &&
+             docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest &&
+             docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:$machine-learning-version &&
+             docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
 
-  "machine-learning-publish":
-    machine: true
-    steps:
-      - run:
-          name: Publishing machine learning image
-          command:
-               docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1 &&
-               docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest &&
-               docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:0.0.1 &&
-               docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest
 
   "latex":
     working_directory: ~/tmp
@@ -45,18 +44,12 @@ jobs:
           command:
              echo $PWD &&
              ls -aslh $PWD &&
-             docker-compose -f latex/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
-
-  "latex-publish":
-    machine: true
-    steps:
-      - run:
-          name: Publishing latex image
-          command:
-                docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
-                docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest &&
-                docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
-                docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
+             docker-compose -f latex/docker-compose.yml  up -d &&
+             docker stop $(docker ps -a -q) &&
+             docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
+             docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest &&
+             docker push $DOCKER_HUB_USER_ID/latex-jupyter:0.0.1 &&
+             docker push $DOCKER_HUB_USER_ID/latex-jupyter:latest
 
   "graphviz":
     working_directory: ~/tmp
@@ -68,33 +61,17 @@ jobs:
           command:
              echo $PWD &&
              ls -aslh $PWD &&
-             docker-compose -f graphviz/docker-compose.yml  up -d && docker stop $(docker ps -a -q)
-
-  "graphviz-publish":
-    machine: true
-    steps:
-      - run:
-          name: Publishing graphviz image
-          command:
-               docker images && docker ps &&
-               docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
-               docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest &&
-               docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
-               docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
+             docker-compose -f graphviz/docker-compose.yml  up -d &&
+             docker stop $(docker ps -a -q) &&
+             docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
+             docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:latest &&
+             docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:0.0.1 &&
+             docker push $DOCKER_HUB_USER_ID/graphviz-jupyter:latest
 
 workflows:
   version: 2
   build:
     jobs:
       - "machine-learning"
-      - "machine-learning-publish":
-            requires:
-              - "machine-learning"
       - "latex"
-      - "latex-publish":
-            requires:
-              - "latex"
       - "graphviz"
-      - "graphviz-publish":
-            requires:
-              - "graphviz"
