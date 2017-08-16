@@ -11,6 +11,12 @@ dependencies:
        - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
 
 jobs:
+  "checkout-workspace":
+    working_directory: ~/machine-learning-container
+    steps:
+       - attach_workspace:
+           at: ~/machine-learning-container
+
   "machine-learning":
     workdir: $CIRCLE_WORKING_DIRECTORY
     machine: true
@@ -73,14 +79,20 @@ workflows:
   build:
     jobs:
       - "machine-learning"
+            requires:
+               - "checkout-workspace"
       - "machine-learning-publish":
             requires:
               - "machine-learning"
       - "latex"
+            requires:
+               - "checkout-workspace"
       - "latex-publish":
             requires:
               - "latex"
       - "graphviz"
+            requires:
+               - "checkout-workspace"
       - "graphviz-publish":
             requires:
               - "graphviz"
