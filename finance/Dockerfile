@@ -1,8 +1,8 @@
 FROM lorenzomartino/machine-learning-jupyter:latest
-
+USER admin
 COPY requirements.txt /libs
 WORKDIR /libs
-RUN sudo pip install -r requirements.txt
+RUN pip install -r requirements.txt --user ADMIN
 
 # Configuration of Jupyter notebook
 WORKDIR /home/admin
