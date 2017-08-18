@@ -1,12 +1,13 @@
 [![CircleCI](https://circleci.com/gh/lorenzomartino86/machine-learning-container.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/lorenzomartino86/machine-learning-container)
 
 ### Introduction
-This projects handle build and distribution of some docker images in order to extend the operations on a jupyter notebook.
+This project handles build and distribution of some docker images in order to extend the operations on a jupyter notebook.
 
 Following jupyter notebook instances are built on separated images:
 - **machine_learning**: Used for data science analysis using most popular libraries: pandas, numpy, matplotlib, etc.
 - **graphviz**: Used for complex graph generation with graphviz library. It's configured with python api for graphviz.
 - **latex**: Used for math documentation. It allows writing and exporting of LaTex code from inside notebook
+- **finance**: Used for finance analysis with specific libraries. It extends *machine_learning* docker image.
 
 N.B: These are containers and by nature they are stateless instances of an image. Export files to your host machine before shutting down the container or you will lose your work.
 
@@ -18,6 +19,7 @@ You can pull the already built image from dockerhub following instructions shown
 - **machine_learning**: https://hub.docker.com/r/lorenzomartino/machine-learning-jupyter/
 - **graphviz**: https://hub.docker.com/r/lorenzomartino/graphviz-jupyter/
 - **latex**: https://hub.docker.com/r/lorenzomartino/latex-jupyter/
+- **finance**: https://hub.docker.com/r/lorenzomartino/finance-jupyter/
 
 Or ou can directly build and run jupyter simply executing (in case you need machine learning image)
 ```
