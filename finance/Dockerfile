@@ -1,4 +1,5 @@
 FROM lorenzomartino/machine-learning-jupyter:latest
+USER admin
 
 COPY requirements.txt /libs
 WORKDIR /libs
