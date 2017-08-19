@@ -15,6 +15,7 @@ RUN chmod 775 /etc/notebook.sh
 RUN useradd -ms /bin/bash admin
 USER admin
 WORKDIR /home/admin
-COPY DataSourceSamples.ipynb /home/admin/DataSourceSamples.ipynb
-COPY
+RUN mkdir /home/admin/time_data/
+COPY time_data/*  /home/admin/time_data/*
+COPY *.ipynb /home/admin/
 CMD /etc/notebook.sh
