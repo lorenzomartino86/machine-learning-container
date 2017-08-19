@@ -15,4 +15,5 @@ RUN chmod 775 /etc/notebook.sh
 RUN useradd -ms /bin/bash admin
 USER admin
 WORKDIR /home/admin
+COPY DataSourceSamples.ipynb /home/admin/DataSourceSamples.ipynb
 CMD /etc/notebook.sh
