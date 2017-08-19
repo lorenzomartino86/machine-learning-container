@@ -16,4 +16,5 @@ RUN useradd -ms /bin/bash admin
 USER admin
 WORKDIR /home/admin
 COPY DataSourceSamples.ipynb /home/admin/DataSourceSamples.ipynb
+COPY
 CMD /etc/notebook.sh
