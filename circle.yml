@@ -92,6 +92,26 @@ jobs:
              docker push $DOCKER_HUB_USER_ID/finance-jupyter:${version} &&
              docker push $DOCKER_HUB_USER_ID/finance-jupyter:latest
 
+  ibm-watson-nlp:
+    working_directory: ~/tmp
+    environment:
+       version: 1.0.0
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Building ibm-watson-nlp image
+          command:
+             echo $PWD &&
+             ls -aslh $PWD &&
+             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
+             docker-compose -f ibm-watson-nlp/docker-compose.yml  up -d &&
+             docker stop $(docker ps -a -q) &&
+             docker tag ibmwatsonnlp_jupyter $DOCKER_HUB_USER_ID/ibm-watson-nlp-jupyter:${version} &&
+             docker tag ibmwatsonnlp_jupyter $DOCKER_HUB_USER_ID/ibm-watson-nlp-jupyter:latest &&
+             docker push $DOCKER_HUB_USER_ID/ibm-watson-nlp-jupyter:${version} &&
+             docker push $DOCKER_HUB_USER_ID/ibm-watson-nlp-jupyter:latest
+
 workflows:
   version: 2
   build:
@@ -100,3 +120,4 @@ workflows:
       - latex
       - graphviz
       - finance
+      - ibm-watson-nlp
