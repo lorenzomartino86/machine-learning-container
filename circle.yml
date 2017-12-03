@@ -25,7 +25,7 @@ jobs:
              ls -aslh $PWD &&
              docker-compose -f machine_learning/docker-compose.yml up -d &&
              docker stop $(docker ps -a -q) &&
-             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
+             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
              docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:${version} &&
              docker tag machinelearning_jupyter $DOCKER_HUB_USER_ID/machine-learning-jupyter:latest &&
              docker push $DOCKER_HUB_USER_ID/machine-learning-jupyter:${version} &&
@@ -46,7 +46,7 @@ jobs:
              ls -aslh $PWD &&
              docker-compose -f latex/docker-compose.yml  up -d &&
              docker stop $(docker ps -a -q) &&
-             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
+             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
              docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:${version} &&
              docker tag latex_jupyter $DOCKER_HUB_USER_ID/latex-jupyter:latest &&
              docker push $DOCKER_HUB_USER_ID/latex-jupyter:${version} &&
@@ -64,7 +64,7 @@ jobs:
           command:
              echo $PWD &&
              ls -aslh $PWD &&
-             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
+             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
              docker-compose -f graphviz/docker-compose.yml  up -d &&
              docker stop $(docker ps -a -q) &&
              docker tag graphviz_jupyter $DOCKER_HUB_USER_ID/graphviz-jupyter:${version} &&
@@ -84,7 +84,7 @@ jobs:
           command:
              echo $PWD &&
              ls -aslh $PWD &&
-             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
+             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
              docker-compose -f finance/docker-compose.yml  up -d &&
              docker stop $(docker ps -a -q) &&
              docker tag finance_jupyter $DOCKER_HUB_USER_ID/finance-jupyter:${version} &&
@@ -105,7 +105,7 @@ jobs:
              echo $PWD &&
              ls -aslh $PWD &&
              docker login --help &&
-             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
+             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
              docker-compose -f ibm-watson-nlp/docker-compose.yml  up -d &&
              docker stop $(docker ps -a -q) &&
              docker tag ibmwatsonnlp_jupyter $DOCKER_HUB_USER_ID/ibm-watson-nlp-jupyter:${version} &&
