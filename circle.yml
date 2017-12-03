@@ -104,7 +104,6 @@ jobs:
           command:
              echo $PWD &&
              ls -aslh $PWD &&
-             docker login --help &&
              docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD &&
              docker-compose -f ibm-watson-nlp/docker-compose.yml  up -d &&
              docker stop $(docker ps -a -q) &&
