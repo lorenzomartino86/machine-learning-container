@@ -7,7 +7,8 @@ Following jupyter notebook instances are built on separated images:
 - **machine_learning**: Used for data science analysis using most popular libraries: pandas, numpy, matplotlib, etc.
 - **graphviz**: Used for complex graph generation with graphviz library. It's configured with python api for graphviz.
 - **latex**: Used for math documentation. It allows writing and exporting of LaTex code from inside notebook
-- **finance**: Used for finance analysis with specific libraries. It extends *machine_learning* docker image.
+- **finance**: Used for finance analysis with specific libraries.
+- **Ibm Watson NLP**: Used for natural language processing through IBM Watson cloud api.
 
 N.B: These are containers and by nature they are stateless instances of an image. Export files to your host machine before shutting down the container or you will lose your work.
 
@@ -20,6 +21,7 @@ You can pull the already built image from dockerhub following instructions shown
 - **graphviz**: https://hub.docker.com/r/lorenzomartino/graphviz-jupyter/
 - **latex**: https://hub.docker.com/r/lorenzomartino/latex-jupyter/
 - **finance**: https://hub.docker.com/r/lorenzomartino/finance-jupyter/
+- **Ibm Watson NLP**: https://hub.docker.com/r/lorenzomartino/ibm-watson-nlp-jupyter/
 
 Or ou can directly build and run jupyter simply executing (in case you need machine learning image)
 ```
