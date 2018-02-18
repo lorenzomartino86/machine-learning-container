@@ -1,6 +1,7 @@
 FROM python:3.6
 
-RUN apt-get --yes update
+RUN apt-get --yes update &&\
+    apt-get --yes install speech-dispatcher
 RUN pip install jupyter
 
 # Configuration of python libraries
