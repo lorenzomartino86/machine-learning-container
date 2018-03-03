@@ -28,6 +28,12 @@ Or ou can directly build and run jupyter simply executing (in case you need mach
 $ docker-compose -f machine_learning/docker-compose.yml up -d 
 ```
 
+Note: You can enable widget extension inside the container running following command:
+```
+   jupyter nbextension enable --py --sys-prefix widgetsnbextension
+```
+
+
 Then you should notice a log like following ones on the container side:
 ```
 jupyter_1  |     
